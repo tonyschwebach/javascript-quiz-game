@@ -16,17 +16,32 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <h1 class="" id="question-text">Coding Quiz Challenge</h1>
-    <h4 class="">
-      Try to answer the following code-related questions within the time limit.
-      Keep in mind that incorrect answers will penalize your score/time by ten
-      (10) seconds!
-    </h4>
-    <ul id="choices-list">
+    <main class="container">
+      <!-- row 1 for question text -->
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="" id="question-text">Coding Quiz Challenge</h1>
+        </div>
+      </div>
+      <h4 class="" id="instructions">
+        Try to answer the following code-related questions within the time
+        limit. Keep in mind that incorrect answers will penalize your score/time
+        by ten (10) seconds!
+      </h4>
+      <!-- row for choices  -->
+      <div class="row">
+        <div class="col-md-12">
+          <ul id="choices-list"></ul>
+        </div>
+      </div>
+      <!-- row for Correct or Wrong notification  -->
+      <div class="row">
+        <div class="col-md-12">
+          <p id="correct-notification"></ul>
+        </div>
+      </div>
 
-    </ul>
-
-
+    </main>
     <script src="./script.js" async defer></script>
   </body>
 </html>

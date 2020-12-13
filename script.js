@@ -1,7 +1,11 @@
-let choicesListEl = document.getElementById("#choices-list");
-let questionTextEl = document.getElementById("#question-text");
+// DOM Variables 
+let questionTextEl = document.getElementById("question-text");
+let instructionsEl = document.getElementById("instructions");
+let choicesListEl = document.getElementById("choices-list");
+let notifcationEl = document.getElementById("correct-notification")
 
-// variables
+
+// Variables
 // array of objects for questions{question: Text, choices:[1,2,3,4], answer:choices[i]}
 let quizQuestions = [
   {
@@ -35,17 +39,30 @@ let quizQuestions = [
   },
 ];
 
-// console.log(quizQuestions[0].choices);
+
 for (i = 0; i < quizQuestions.length; i++) {
-  // questionTextEl.textContent = quizQuestions[i].question;
-  console.log(quizQuestions[i].question);
+  questionTextEl.textContent = quizQuestions[i].question;
+  instructionsEl.remove(); 
   for (j = 0; j <quizQuestions[i].choices.length; j++){
-    console.log(j+1);
-    console.log(quizQuestions[i].choices[j]);
+    let liEl = document.createElement("button");
+    liEl.textContent=(j+1) + ". " + (quizQuestions[i].choices[j]);
+    liEl.setAttribute("class",""); //bootstrap classes here
+    liEl.setAttribute("data-index",j) //for event listener event delegation
+    choicesListEl.appendChild(liEl);
   }
+  //wait for user to select answer
 }
 
 // event listener for question
+
+//   choicesListEl.addEventListener("click",function(event){
+//   event.preventDefault();
+//   if(event.target.matches("button")){
+//     var item = do
+//   }
+
+
+// })
 
 // start button
 // timer starts
@@ -54,3 +71,20 @@ for (i = 0; i < quizQuestions.length; i++) {
 // incorrect answer deducts 10 seconds from remaining time and notifies wrong
 // when all questions are answered or timer reaches 0 the game is over
 // submit initials and high ScopedCredential
+
+
+// event listener to start quiz
+    // call gameplay function
+
+// define gameplay function: 
+// start timer
+// for loop over array of questions
+  // call function to display question i
+  // event listener for answer
+    // if incorrect, reduce time, notify incorrect
+    // if correct, notify correct
+    // clear question and choices
+    // if time <=0, call game over function
+    // else, continue for loop
+// call game over function
+
