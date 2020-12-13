@@ -59,9 +59,9 @@ function startQuiz() {
   instructionsEl.textContent = "";
   startButtonEl.setAttribute("class","d-none"); //do not display start button once game begins
   currentQuestion = 0; // new quiz reset to start question
-  timeRemaining = 3;
+  timeRemaining = 75; // starting time
   scoreTimerEl.textContent = "Time: " + timeRemaining;
-  setScoreTimer(timeRemaining);
+  setScoreTimer();
   askQuestion(currentQuestion);
 
   // start timer
@@ -88,14 +88,14 @@ function askQuestion(questionNumber) {
   }
 }
 
-function setScoreTimer(seconds){
+function setScoreTimer(){
   var timerInterval = setInterval(function(){
-    seconds--;
-    scoreTimerEl.textContent = "Time: " + seconds;
-    if(seconds ===0){
+    timeRemaining--;
+    scoreTimerEl.textContent = "Time: " + timeRemaining;
+    if(timeRemaining <= 0){
       clearInterval(timerInterval);
       console.log("time's up");
-      // high scores
+      // high scores redirect
     }
   }, 1000);
 }
@@ -118,6 +118,7 @@ choicesListEl.addEventListener("click", function (event) {
     } else{
       notificationEl.textContent = "Wrong!";
       timeRemaining = timeRemaining - 10;
+      scoreTimerEl.textContent = "Time: " + timeRemaining;
     }
 
     currentQuestion++;
@@ -125,7 +126,7 @@ choicesListEl.addEventListener("click", function (event) {
       askQuestion(currentQuestion);
     } else {
       console.log("game over");
-      // high scores page
+      // high scores redirect
     }
   }
 });
