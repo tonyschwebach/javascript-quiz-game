@@ -11,7 +11,7 @@ let userInitialsInput = document.getElementById("user-initials");
 
 // Variables
 let currentQuestion = 0;
-let timeRemaining = 75; // starting time
+let timeRemaining = 20; // starting time at 75 seconds
 var highscoresArray = [];
 
 // array of objects for questions{question: Text, choices:[1,2,3,4], answer:choices[i]}
@@ -92,12 +92,15 @@ function askQuestion(questionNumber) {
 
 function setScoreTimer() {
   var timerInterval = setInterval(function () {
-    timeRemaining--;
-    scoreTimerEl.textContent = "Time: " + timeRemaining;
-    if (timeRemaining <= 0) {
-      clearInterval(timerInterval);
-      console.log("time's up");
-      getInitials();
+    // count down if not all questions completed
+    if (currentQuestion < jsQuizQuestions.length) {
+      timeRemaining--;
+      scoreTimerEl.textContent = "Time: " + timeRemaining;
+      // if time runs out stop the clock at 0 and get user initials for high scores
+      if (timeRemaining <= 0) {
+        clearInterval(timerInterval);
+        getInitials();
+      }
     }
   }, 1000);
 }
@@ -141,9 +144,9 @@ choicesListEl.addEventListener("click", function (event) {
 userScoreFormEl.addEventListener("submit", function (event) {
   event.preventDefault();
   let user = userInitialsInput.value.trim();
-  highscoresArray.push({Score:timeRemaining, Player:user});
+  highscoresArray.push({ Score: timeRemaining, Player: user });
 });
-console.log(highscoresArray);
+
 //
 // start button
 // timer starts
