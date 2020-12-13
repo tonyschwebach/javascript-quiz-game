@@ -6,10 +6,14 @@ let notificationEl = document.getElementById("correct-notification");
 let startButtonEl = document.getElementById("start-button");
 let scoreTimerEl = document.getElementById("score-timer");
 let highscoresEl = document.getElementById("view-highscores");
+let userScoreFormEl = document.getElementById("user-score-form");
+let userInitialsInput = document.getElementById("user-initials");
+
 
 // Variables
 let currentQuestion = 0;
-let timeRemaining = 0;
+let timeRemaining = 75; // starting time
+var highscoresArray = [];
 
 // array of objects for questions{question: Text, choices:[1,2,3,4], answer:choices[i]}
 let jsQuizQuestions = [
@@ -59,7 +63,6 @@ function startQuiz() {
   instructionsEl.textContent = "";
   startButtonEl.setAttribute("class","d-none"); //do not display start button once game begins
   currentQuestion = 0; // new quiz reset to start question
-  timeRemaining = 75; // starting time
   scoreTimerEl.textContent = "Time: " + timeRemaining;
   setScoreTimer();
   askQuestion(currentQuestion);
@@ -95,11 +98,19 @@ function setScoreTimer(){
     if(timeRemaining <= 0){
       clearInterval(timerInterval);
       console.log("time's up");
-      // high scores redirect
+      recordScore();
     }
   }, 1000);
 }
 
+
+function recordScore(){
+  questionTextEl.textContent = "All done!"
+  instructionsEl.textContent = "Your final score is "+timeRemaining+"."
+  choicesListEl.innerHTML = "";
+  userScoreFormEl.setAttribute("class","d-inline");
+ 
+}
 
 
 // event listener to start the game
@@ -126,12 +137,17 @@ choicesListEl.addEventListener("click", function (event) {
       askQuestion(currentQuestion);
     } else {
       console.log("game over");
-      // high scores redirect
+      recordScore(); 
     }
   }
 });
 
+userScoreFormEl.addEventListener("submit",function(event){
+  event.preventDefault();
+  var user = userInitialsInput.value.trim();
+  console.log(user);
 
+})
 
 //
 // start button
