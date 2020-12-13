@@ -4,9 +4,12 @@ let instructionsEl = document.getElementById("instructions");
 let choicesListEl = document.getElementById("choices-list");
 let notificationEl = document.getElementById("correct-notification");
 let startButtonEl = document.getElementById("start-button");
+let scoreTimerEl = document.getElementById("score-timer");
+let highscoresEl = document.getElementById("view-highscores");
 
 // Variables
 let currentQuestion = 0;
+let timeRemaining = 0;
 
 // array of objects for questions{question: Text, choices:[1,2,3,4], answer:choices[i]}
 let jsQuizQuestions = [
@@ -56,6 +59,9 @@ function startQuiz() {
   instructionsEl.textContent = "";
   startButtonEl.setAttribute("class","d-none"); //do not display start button once game begins
   currentQuestion = 0; // new quiz reset to start question
+  timeRemaining = 3;
+  scoreTimerEl.textContent = "Time: " + timeRemaining;
+  setScoreTimer(timeRemaining);
   askQuestion(currentQuestion);
 
   // start timer
@@ -82,6 +88,26 @@ function askQuestion(questionNumber) {
   }
 }
 
+function setScoreTimer(seconds){
+  var timerInterval = setInterval(function(){
+    seconds--;
+    scoreTimerEl.textContent = "Time: " + seconds;
+    if(seconds ===0){
+      clearInterval(timerInterval);
+      console.log("time's up");
+      // high scores
+    }
+  }, 1000);
+}
+
+
+
+// event listener to start the game
+startButtonEl.addEventListener("click", function (event) {
+  event.preventDefault();
+  startQuiz();
+});
+
 // event listener for user selection of choices for the question
 choicesListEl.addEventListener("click", function (event) {
   event.preventDefault();
@@ -91,6 +117,7 @@ choicesListEl.addEventListener("click", function (event) {
       notificationEl.textContent = "Correct!";
     } else{
       notificationEl.textContent = "Wrong!";
+      timeRemaining = timeRemaining - 10;
     }
 
     currentQuestion++;
@@ -98,15 +125,12 @@ choicesListEl.addEventListener("click", function (event) {
       askQuestion(currentQuestion);
     } else {
       console.log("game over");
+      // high scores page
     }
   }
 });
 
-// event listener to start the game
-startButtonEl.addEventListener("click", function (event) {
-  event.preventDefault();
-  startQuiz();
-});
+
 
 //
 // start button
