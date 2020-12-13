@@ -8,12 +8,12 @@ let scoreTimerEl = document.getElementById("score-timer");
 let highscoresEl = document.getElementById("view-highscores");
 let userScoreFormEl = document.getElementById("user-score-form");
 let userInitialsInput = document.getElementById("user-initials");
+let highScoresListEl = document.getElementById("highscores-list");
 
 ////// Variables
 let currentQuestion = 0;
 let timeRemaining = 75; // starting time at 75 seconds
 var highscoresArray = [];
-
 // array of objects for questions{question: Text, choices:[1,2,3,4], answer:choices[i]}
 let jsQuizQuestions = [
   {
@@ -56,21 +56,10 @@ let jsQuizQuestions = [
   },
 ];
 
+init();
+renderScores();
 
 ////// FUNCTIONS
-// function to initialize high scores data
-function init() {
-  var storedScores = JSON.parse(localStorage.getItem("storedScores"));
-  if (storedScores){
-    highscoresArray = storedScores;
-  }
-}
-// function to initialize high scores data
-function recordScore() {
-  localStorage.setItem("storedScores",JSON.stringify(highscoresArray));
-}
-
-
 // function to start the quiz for a given set of questions
 function startQuiz() {
   questionTextEl.textContent = "";
@@ -126,8 +115,29 @@ function getInitials() {
   choicesListEl.innerHTML = "";
   // userScoreFormEl.setAttribute("class","d-inline"); //display user initials form
 }
-
-
+// function to initialize high scores data
+function init() {
+  var storedScores = JSON.parse(localStorage.getItem("storedScores"));
+  if (storedScores){
+    highscoresArray = storedScores;
+  }
+}
+// function to record high scores to local data
+function recordScore() {
+  localStorage.setItem("storedScores",JSON.stringify(highscoresArray));
+}
+// function to display high scores
+function renderScores(){
+  highScoresListEl.innerHTML = "";
+  let sortedScores = highscoresArray; // will sort the array based highscoresArray.score
+  for (j = 0; j < sortedScores.length; j++){
+    console.log(sortedScores[j]);
+    var li = document.createElement("li");
+    li.textContent = sortedScores[j].player +" - "+ sortedScores[j].score;
+    li.setAttribute("class","");  //placeholder for bootstrap class
+    highScoresListEl.appendChild(li);
+  }
+}
 
 ////// EVENT LISTENERS
 // event listener to start the game
@@ -160,9 +170,14 @@ choicesListEl.addEventListener("click", function (event) {
 userScoreFormEl.addEventListener("submit", function (event) {
   event.preventDefault();
   let user = userInitialsInput.value.trim();
-  highscoresArray.push({ Score: timeRemaining, Player: user });
+  highscoresArray.push({ score: timeRemaining, player: user });
   recordScore();
+  window.location.href = "./index.html";
 });
+
+
+
+
 
 //
 // start button
