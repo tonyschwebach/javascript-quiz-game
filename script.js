@@ -128,8 +128,10 @@ function recordScore() {
 }
 // function to display high scores
 function renderScores(){
-  highScoresListEl.innerHTML = "";
-  let sortedScores = highscoresArray; // will sort the array based highscoresArray.score
+  highScoresListEl.innerHTML = "";  //clear list
+  let sortedScores = highscoresArray.sort((a,b) => {
+    return b.score - a.score;
+  }); // sort scores high to low
   for (j = 0; j < sortedScores.length; j++){
     console.log(sortedScores[j]);
     var li = document.createElement("li");
