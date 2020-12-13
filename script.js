@@ -1,4 +1,4 @@
-// DOM Variables
+////// DOM Variables
 let questionTextEl = document.getElementById("question-text");
 let instructionsEl = document.getElementById("instructions");
 let choicesListEl = document.getElementById("choices-list");
@@ -9,9 +9,9 @@ let highscoresEl = document.getElementById("view-highscores");
 let userScoreFormEl = document.getElementById("user-score-form");
 let userInitialsInput = document.getElementById("user-initials");
 
-// Variables
+////// Variables
 let currentQuestion = 0;
-let timeRemaining = 20; // starting time at 75 seconds
+let timeRemaining = 75; // starting time at 75 seconds
 var highscoresArray = [];
 
 // array of objects for questions{question: Text, choices:[1,2,3,4], answer:choices[i]}
@@ -56,6 +56,21 @@ let jsQuizQuestions = [
   },
 ];
 
+
+////// FUNCTIONS
+// function to initialize high scores data
+function init() {
+  var storedScores = JSON.parse(localStorage.getItem("storedScores"));
+  if (storedScores){
+    highscoresArray = storedScores;
+  }
+}
+// function to initialize high scores data
+function recordScore() {
+  localStorage.setItem("storedScores",JSON.stringify(highscoresArray));
+}
+
+
 // function to start the quiz for a given set of questions
 function startQuiz() {
   questionTextEl.textContent = "";
@@ -67,6 +82,21 @@ function startQuiz() {
   askQuestion(currentQuestion);
 
   // start timer
+}
+// start score timer
+function setScoreTimer() {
+  var timerInterval = setInterval(function () {
+    // count down if not all questions completed
+    if (currentQuestion < jsQuizQuestions.length) {
+      timeRemaining--;
+      scoreTimerEl.textContent = "Time: " + timeRemaining;
+      // if time runs out stop the clock at 0 and get user initials for high scores
+      if (timeRemaining <= 0) {
+        clearInterval(timerInterval);
+        getInitials();
+      }
+    }
+  }, 1000);
 }
 // function to ask a question from a given array and question number
 function askQuestion(questionNumber) {
@@ -89,22 +119,7 @@ function askQuestion(questionNumber) {
     liEl.appendChild(buttonEl);
   }
 }
-
-function setScoreTimer() {
-  var timerInterval = setInterval(function () {
-    // count down if not all questions completed
-    if (currentQuestion < jsQuizQuestions.length) {
-      timeRemaining--;
-      scoreTimerEl.textContent = "Time: " + timeRemaining;
-      // if time runs out stop the clock at 0 and get user initials for high scores
-      if (timeRemaining <= 0) {
-        clearInterval(timerInterval);
-        getInitials();
-      }
-    }
-  }, 1000);
-}
-
+// clear page of questions and ask user for initials
 function getInitials() {
   questionTextEl.textContent = "All done!";
   instructionsEl.textContent = "Your final score is " + timeRemaining + ".";
@@ -112,12 +127,14 @@ function getInitials() {
   // userScoreFormEl.setAttribute("class","d-inline"); //display user initials form
 }
 
+
+
+////// EVENT LISTENERS
 // event listener to start the game
 startButtonEl.addEventListener("click", function (event) {
   event.preventDefault();
   startQuiz();
 });
-
 // event listener for user selection of choices for the question
 choicesListEl.addEventListener("click", function (event) {
   event.preventDefault();
@@ -135,16 +152,16 @@ choicesListEl.addEventListener("click", function (event) {
     if (currentQuestion < jsQuizQuestions.length) {
       askQuestion(currentQuestion);
     } else {
-      console.log("game over");
       getInitials();
     }
   }
 });
-
+// event listener for user submitting initials for high scores
 userScoreFormEl.addEventListener("submit", function (event) {
   event.preventDefault();
   let user = userInitialsInput.value.trim();
   highscoresArray.push({ Score: timeRemaining, Player: user });
+  recordScore();
 });
 
 //
