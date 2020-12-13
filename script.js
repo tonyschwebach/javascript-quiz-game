@@ -3,8 +3,10 @@ let questionTextEl = document.getElementById("question-text");
 let instructionsEl = document.getElementById("instructions");
 let choicesListEl = document.getElementById("choices-list");
 let notificationEl = document.getElementById("correct-notification");
+let startButtonEl = document.getElementById("start-button");
 
 // Variables
+let currentQuestion = 0;
 // array of objects for questions{question: Text, choices:[1,2,3,4], answer:choices[i]}
 let jsQuizQuestions = [
   {
@@ -42,62 +44,57 @@ let jsQuizQuestions = [
   },
 ];
 
-
 // function to start the quiz for a given set of questions
-function startQuiz(questionsArray) {
+function startQuiz() {
   questionTextEl.textContent = "";
   instructionsEl.textContent = "";
-  for (i = 0; i < questionsArray.length; i++) {
-  askQuestion(questionsArray,i);
+  currentQuestion = 0; // new quiz reset to start question
+  askQuestion(currentQuestion);
 
   // start timer
-  }
-
+}
 // function to ask a question from a given array and question number
-function askQuestion(questionsArray,questionNumber) {
+function askQuestion(questionNumber) {
   // clear old choices
   choicesListEl.innerHTML = "";
-  
+
   //ask the question
-  questionTextEl.textContent = questionsArray[questionNumber].question;
-  
+  questionTextEl.textContent = jsQuizQuestions[questionNumber].question;
+
   // list choices for the question as buttons
-  for (j = 0; j < questionsArray[questionNumber].choices.length; j++) {
+  for (j = 0; j < jsQuizQuestions[questionNumber].choices.length; j++) {
     let liEl = document.createElement("li"); //create list element for options within ol
-    liEl.setAttribute("class",""); //bootstrap classes here
+    liEl.setAttribute("class", ""); //bootstrap classes here
     choicesListEl.appendChild(liEl);
     let buttonEl = document.createElement("button"); //create buttons within li element
     buttonEl.setAttribute("class", ""); //bootstrap classes here
-    buttonEl.id = j; //for event listener event delegation
+    buttonEl.id = "option" + j; //for event listener event delegation
     buttonEl.textContent =
-      (j + 1) + ". " + questionsArray[questionNumber].choices[j];
+      j + 1 + ". " + jsQuizQuestions[questionNumber].choices[j];
     liEl.appendChild(buttonEl);
   }
 }
 
-
-}
-console.log(startQuiz(jsQuizQuestions));
-
-// event listener for question
-choicesListEl.addEventListener("click",function(event){
+choicesListEl.addEventListener("click", function (event) {
   event.preventDefault();
-  if(event.target.matches("button")){
-    var userSelection = event.target.textContent;
+  if (event.target.matches("button")) {
+    var userSelection = event.target.id;
     console.log(userSelection);
+    currentQuestion++;
+    if (currentQuestion < jsQuizQuestions.length) {
+      askQuestion(currentQuestion);
+    } else {
+      console.log("game over");
+    }
   }
+});
 
-})
+startButtonEl.addEventListener("click", function (event) {
+  event.preventDefault();
+  startQuiz();
+});
 
-
-//   choicesListEl.addEventListener("click",function(event){
-//   event.preventDefault();
-//   if(event.target.matches("button")){
-//     var item = do
-//   }
-
-// })
-
+//
 // start button
 // timer starts
 // question from array of questions appear
