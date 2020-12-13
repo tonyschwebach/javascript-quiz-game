@@ -9,7 +9,6 @@ let highscoresEl = document.getElementById("view-highscores");
 let userScoreFormEl = document.getElementById("user-score-form");
 let userInitialsInput = document.getElementById("user-initials");
 
-
 // Variables
 let currentQuestion = 0;
 let timeRemaining = 75; // starting time
@@ -61,7 +60,7 @@ let jsQuizQuestions = [
 function startQuiz() {
   questionTextEl.textContent = "";
   instructionsEl.textContent = "";
-  startButtonEl.setAttribute("class","d-none"); //do not display start button once game begins
+  startButtonEl.setAttribute("class", "d-none"); //do not display start button once game begins
   currentQuestion = 0; // new quiz reset to start question
   scoreTimerEl.textContent = "Time: " + timeRemaining;
   setScoreTimer();
@@ -91,27 +90,24 @@ function askQuestion(questionNumber) {
   }
 }
 
-function setScoreTimer(){
-  var timerInterval = setInterval(function(){
+function setScoreTimer() {
+  var timerInterval = setInterval(function () {
     timeRemaining--;
     scoreTimerEl.textContent = "Time: " + timeRemaining;
-    if(timeRemaining <= 0){
+    if (timeRemaining <= 0) {
       clearInterval(timerInterval);
       console.log("time's up");
-      recordScore();
+      getInitials();
     }
   }, 1000);
 }
 
-
-function recordScore(){
-  questionTextEl.textContent = "All done!"
-  instructionsEl.textContent = "Your final score is "+timeRemaining+"."
+function getInitials() {
+  questionTextEl.textContent = "All done!";
+  instructionsEl.textContent = "Your final score is " + timeRemaining + ".";
   choicesListEl.innerHTML = "";
-  userScoreFormEl.setAttribute("class","d-inline");
- 
+  // userScoreFormEl.setAttribute("class","d-inline"); //display user initials form
 }
-
 
 // event listener to start the game
 startButtonEl.addEventListener("click", function (event) {
@@ -124,9 +120,9 @@ choicesListEl.addEventListener("click", function (event) {
   event.preventDefault();
   if (event.target.matches("button")) {
     var userSelection = parseInt(event.target.getAttribute("data-choiceIndex"));
-    if (userSelection === jsQuizQuestions[currentQuestion].answerIndex){
+    if (userSelection === jsQuizQuestions[currentQuestion].answerIndex) {
       notificationEl.textContent = "Correct!";
-    } else{
+    } else {
       notificationEl.textContent = "Wrong!";
       timeRemaining = timeRemaining - 10;
       scoreTimerEl.textContent = "Time: " + timeRemaining;
@@ -137,18 +133,17 @@ choicesListEl.addEventListener("click", function (event) {
       askQuestion(currentQuestion);
     } else {
       console.log("game over");
-      recordScore(); 
+      getInitials();
     }
   }
 });
 
-userScoreFormEl.addEventListener("submit",function(event){
+userScoreFormEl.addEventListener("submit", function (event) {
   event.preventDefault();
-  var user = userInitialsInput.value.trim();
-  console.log(user);
-
-})
-
+  let user = userInitialsInput.value.trim();
+  highscoresArray.push({Score:timeRemaining, Player:user});
+});
+console.log(highscoresArray);
 //
 // start button
 // timer starts
