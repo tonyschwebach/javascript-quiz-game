@@ -8,7 +8,7 @@ Javascript Quiz Game is a game that quizzes users on their knowledge of Javascri
 
 ---
 
-## Table of Contents (Optional)
+## Table of Contents
 
 - [Installation](#installation)
 - [Usage](#usage)
