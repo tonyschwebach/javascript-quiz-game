@@ -14,7 +14,7 @@ let clearScoresEl = document.getElementById("clear-scores");
 
 ////// Variables
 let currentQuestion = 0;
-let timeRemaining = 75; // starting time at 75 seconds
+let timeRemaining = 11175; // starting time at 75 seconds
 var highscoresArray = [];
 // array of objects for questions{question: Text, choices:[1,2,3,4], answer:choices[i]}
 let jsQuizQuestions = [
