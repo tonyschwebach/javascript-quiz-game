@@ -14,7 +14,7 @@ let clearScoresEl = document.getElementById("clear-scores");
 
 ////// Variables
 let currentQuestion = 0;
-let timeRemaining = 11175; // starting time at 75 seconds
+let timeRemaining = 75; // starting time at 75 seconds
 var highscoresArray = [];
 // array of objects for questions{question: Text, choices:[1,2,3,4], answer:choices[i]}
 let jsQuizQuestions = [
@@ -136,8 +136,8 @@ function renderScores(){
   for (j = 0; j < sortedScores.length; j++){
     console.log(sortedScores[j]);
     var li = document.createElement("li");
-    li.textContent = sortedScores[j].player +" - "+ sortedScores[j].score;
-    li.setAttribute("class","");  //placeholder for bootstrap class
+    li.textContent = (j+1) +". "+ sortedScores[j].player +" - "+ sortedScores[j].score;
+    li.setAttribute("class","bg-primary align-left my-2 p-1 text-white");  //placeholder for bootstrap class
     highScoresListEl.appendChild(li);
   }
 }
@@ -195,8 +195,8 @@ if(document.title === "JavaScript Quiz Highscores"){
 
 // //to do
 // color buttons
-// bars on highscores page 
-// go back link button on highscores
+
+
 
 
 
