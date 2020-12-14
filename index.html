@@ -16,15 +16,19 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <header class="d-flex m-3"> 
-      <div id="view-highscores" class="d-inline"><a href="./highScores.html">View Highscores</a></div>
+    <header class="d-flex m-3">
+      <div id="view-highscores" class="d-inline">
+        <a href="./highScores.html">View Highscores</a>
+      </div>
       <div id="score-timer" class="d-inline ml-auto">Time: 0</div>
     </header>
     <main class="container">
       <!-- row 1 for question text -->
       <div class="row">
         <div class="col-md-12">
-          <h1 id="question-text" class="font-weight-bold text-center my-5">Coding Quiz Challenge</h1>
+          <h1 id="question-text" class="font-weight-bold text-center my-5">
+            Coding Quiz Challenge
+          </h1>
         </div>
       </div>
 
@@ -55,7 +59,8 @@
 
       <!-- row for highscores form  -->
       <div class="row">
-        <div class="col-md-12 text-center">  <!-- d-none -->
+        <div class="col-md-12 text-center">
+          <!-- d-none -->
           <form id="user-score-form" class="invisible" method="POST">
             <label for="userInitials">Enter Initials:</label>
             <input type="text" name="user-initials" id="user-initials" />
@@ -66,7 +71,7 @@
 
       <!-- row for Correct or Wrong notification  -->
       <div class="row">
-        <div class="col-md-12 border-top" >
+        <div class="col-md-12 border-top">
           <p id="correct-notification"></p>
         </div>
       </div>

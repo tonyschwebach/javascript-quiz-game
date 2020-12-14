@@ -1,0 +1,37 @@
+/* CUSTOM COLORS OVER BOOTSTRAP STANDARD */
+
+a {
+  color: #3d013d;
+}
+
+/* button styling  */
+.bg-primary-light {
+  background-color: #3d013d1a;
+}
+
+.btn-primary {
+  background-color: #3d013d;
+  border-color: #3d013d;
+}
+
+/* button status styling  */
+.btn-primary:hover {
+  background-color: #3d013db4;
+  border-color: #3d013d;
+}
+.btn-primary:focus {
+  background-color: #3d013db4;
+  border-color: #3d013d;
+  box-shadow: 0 0 0 0.2rem #3d013d1a;
+}
+.btn-primary:active {
+  background-color: #3d013db4;
+  border-color: #3d013d;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show > .btn-primary.dropdown-toggle {
+  background-color: #3d013db4;
+  border-color: #3d013d;
+}

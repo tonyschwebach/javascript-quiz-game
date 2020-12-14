@@ -11,7 +11,6 @@ let userInitialsInput = document.getElementById("user-initials");
 let highScoresListEl = document.getElementById("highscores-list");
 let clearScoresEl = document.getElementById("clear-scores");
 
-
 ////// Variables
 let currentQuestion = 0;
 let timeRemaining = 75; // starting time at 75 seconds
@@ -114,37 +113,38 @@ function getInitials() {
   questionTextEl.textContent = "All done!";
   instructionsEl.textContent = "Your final score is " + timeRemaining + ".";
   choicesListEl.innerHTML = "";
-  userScoreFormEl.setAttribute("class","visible mb-5"); //display user initials form
+  userScoreFormEl.setAttribute("class", "visible mb-5"); //display user initials form
 }
 // function to initialize high scores data
 function init() {
   var storedScores = JSON.parse(localStorage.getItem("storedScores"));
-  if (storedScores){
+  if (storedScores) {
     highscoresArray = storedScores;
   }
 }
 // function to record high scores to local data
 function recordScore() {
-  localStorage.setItem("storedScores",JSON.stringify(highscoresArray));
+  localStorage.setItem("storedScores", JSON.stringify(highscoresArray));
 }
 // function to display high scores
-function renderScores(){
-  highScoresListEl.innerHTML = ""  //clear list
-  let sortedScores = highscoresArray.sort((a,b) => {
+function renderScores() {
+  highScoresListEl.innerHTML = ""; //clear list
+  let sortedScores = highscoresArray.sort((a, b) => {
     return b.score - a.score;
   }); // sort scores high to low
-  for (j = 0; j < sortedScores.length; j++){
+  for (j = 0; j < sortedScores.length; j++) {
     console.log(sortedScores[j]);
     var li = document.createElement("li");
-    li.textContent = (j+1) +". "+ sortedScores[j].player +" - "+ sortedScores[j].score;
-    li.setAttribute("class","bg-primary align-left my-2 p-1 text-white");  //placeholder for bootstrap class
+    li.textContent =
+      j + 1 + ". " + sortedScores[j].player + " - " + sortedScores[j].score;
+    li.setAttribute("class", "bg-primary-light align-left my-2 p-1"); //placeholder for bootstrap class
     highScoresListEl.appendChild(li);
   }
 }
 
 ////// EVENT LISTENERS
 // event listeners for index.html
-if ( document.title === "JavaScript Quiz Game"){
+if (document.title === "JavaScript Quiz Game") {
   // event listener to start the game
   startButtonEl.addEventListener("click", function (event) {
     event.preventDefault();
@@ -154,7 +154,9 @@ if ( document.title === "JavaScript Quiz Game"){
   choicesListEl.addEventListener("click", function (event) {
     event.preventDefault();
     if (event.target.matches("button")) {
-      var userSelection = parseInt(event.target.getAttribute("data-choiceIndex"));
+      var userSelection = parseInt(
+        event.target.getAttribute("data-choiceIndex")
+      );
       if (userSelection === jsQuizQuestions[currentQuestion].answerIndex) {
         notificationEl.textContent = "Correct!";
       } else {
@@ -179,14 +181,14 @@ if ( document.title === "JavaScript Quiz Game"){
     recordScore();
     window.location.href = "./highScores.html";
   });
-} 
+}
 
 // event listeners for highScores.html
-if(document.title === "JavaScript Quiz Highscores"){
+if (document.title === "JavaScript Quiz Highscores") {
   renderScores();
   // event listener for clear scores from high scores
-  clearScoresEl.addEventListener("click", function(event) {
-    highscoresArray =[];
+  clearScoresEl.addEventListener("click", function (event) {
+    highscoresArray = [];
     recordScore();
     init();
     renderScores();
@@ -195,14 +197,6 @@ if(document.title === "JavaScript Quiz Highscores"){
 
 // //to do
 // color buttons
-
-
-
-
-
-
-
-
 
 //
 // start button
