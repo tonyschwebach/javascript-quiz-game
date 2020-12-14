@@ -9,6 +9,8 @@ let highscoresEl = document.getElementById("view-highscores");
 let userScoreFormEl = document.getElementById("user-score-form");
 let userInitialsInput = document.getElementById("user-initials");
 let highScoresListEl = document.getElementById("highscores-list");
+let clearScoresEl = document.getElementById("clear-scores");
+
 
 ////// Variables
 let currentQuestion = 0;
@@ -57,7 +59,6 @@ let jsQuizQuestions = [
 ];
 
 init();
-renderScores();
 
 ////// FUNCTIONS
 // function to start the quiz for a given set of questions
@@ -128,7 +129,7 @@ function recordScore() {
 }
 // function to display high scores
 function renderScores(){
-  highScoresListEl.innerHTML = "";  //clear list
+  highScoresListEl.innerHTML = ""  //clear list
   let sortedScores = highscoresArray.sort((a,b) => {
     return b.score - a.score;
   }); // sort scores high to low
@@ -142,41 +143,55 @@ function renderScores(){
 }
 
 ////// EVENT LISTENERS
-// event listener to start the game
-startButtonEl.addEventListener("click", function (event) {
-  event.preventDefault();
-  startQuiz();
-});
-// event listener for user selection of choices for the question
-choicesListEl.addEventListener("click", function (event) {
-  event.preventDefault();
-  if (event.target.matches("button")) {
-    var userSelection = parseInt(event.target.getAttribute("data-choiceIndex"));
-    if (userSelection === jsQuizQuestions[currentQuestion].answerIndex) {
-      notificationEl.textContent = "Correct!";
-    } else {
-      notificationEl.textContent = "Wrong!";
-      timeRemaining = timeRemaining - 10;
-      scoreTimerEl.textContent = "Time: " + timeRemaining;
-    }
+// event listeners for index.html
+if ( document.title === "JavaScript Quiz Game"){
+  // event listener to start the game
+  startButtonEl.addEventListener("click", function (event) {
+    event.preventDefault();
+    startQuiz();
+  });
+  // event listener for user selection of choices for the question
+  choicesListEl.addEventListener("click", function (event) {
+    event.preventDefault();
+    if (event.target.matches("button")) {
+      var userSelection = parseInt(event.target.getAttribute("data-choiceIndex"));
+      if (userSelection === jsQuizQuestions[currentQuestion].answerIndex) {
+        notificationEl.textContent = "Correct!";
+      } else {
+        notificationEl.textContent = "Wrong!";
+        timeRemaining = timeRemaining - 10;
+        scoreTimerEl.textContent = "Time: " + timeRemaining;
+      }
 
-    currentQuestion++;
-    if (currentQuestion < jsQuizQuestions.length) {
-      askQuestion(currentQuestion);
-    } else {
-      getInitials();
+      currentQuestion++;
+      if (currentQuestion < jsQuizQuestions.length) {
+        askQuestion(currentQuestion);
+      } else {
+        getInitials();
+      }
     }
-  }
-});
-// event listener for user submitting initials for high scores
-userScoreFormEl.addEventListener("submit", function (event) {
-  event.preventDefault();
-  let user = userInitialsInput.value.trim();
-  highscoresArray.push({ score: timeRemaining, player: user });
-  recordScore();
-  window.location.href = "./index.html";
-});
+  });
+  // event listener for user submitting initials for high scores
+  userScoreFormEl.addEventListener("submit", function (event) {
+    event.preventDefault();
+    let user = userInitialsInput.value.trim();
+    highscoresArray.push({ score: timeRemaining, player: user });
+    recordScore();
+    window.location.href = "./highScores.html";
+  });
+} 
 
+// event listeners for highScores.html
+if(document.title === "JavaScript Quiz Highscores"){
+  renderScores();
+  // event listener for clear scores from high scores
+  clearScoresEl.addEventListener("click", function(event) {
+    highscoresArray =[];
+    recordScore();
+    init();
+    renderScores();
+  });
+}
 
 
 
