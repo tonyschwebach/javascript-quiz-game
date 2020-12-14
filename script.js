@@ -99,10 +99,10 @@ function askQuestion(questionNumber) {
   // list choices for the question as buttons
   for (j = 0; j < jsQuizQuestions[questionNumber].choices.length; j++) {
     let liEl = document.createElement("li"); //create list element for options within ol
-    liEl.setAttribute("class", ""); //bootstrap classes here
+    liEl.setAttribute("class", "m-2"); //bootstrap classes here
     choicesListEl.appendChild(liEl);
     let buttonEl = document.createElement("button"); //create buttons within li element
-    buttonEl.setAttribute("class", ""); //bootstrap classes here
+    buttonEl.setAttribute("class", "btn btn-primary"); //bootstrap classes here
     buttonEl.setAttribute("data-choiceIndex", j); //for event listener event delegation
     buttonEl.textContent =
       j + 1 + ". " + jsQuizQuestions[questionNumber].choices[j];
@@ -114,7 +114,7 @@ function getInitials() {
   questionTextEl.textContent = "All done!";
   instructionsEl.textContent = "Your final score is " + timeRemaining + ".";
   choicesListEl.innerHTML = "";
-  userScoreFormEl.setAttribute("class","visible"); //display user initials form
+  userScoreFormEl.setAttribute("class","visible mb-5"); //display user initials form
 }
 // function to initialize high scores data
 function init() {
@@ -192,6 +192,14 @@ if(document.title === "JavaScript Quiz Highscores"){
     renderScores();
   });
 }
+
+// //to do
+// color buttons
+// bars on highscores page 
+// go back link button on highscores
+
+
+
 
 
 
