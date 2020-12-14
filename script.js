@@ -114,7 +114,7 @@ function getInitials() {
   questionTextEl.textContent = "All done!";
   instructionsEl.textContent = "Your final score is " + timeRemaining + ".";
   choicesListEl.innerHTML = "";
-  // userScoreFormEl.setAttribute("class","d-inline"); //display user initials form
+  userScoreFormEl.setAttribute("class","visible"); //display user initials form
 }
 // function to initialize high scores data
 function init() {

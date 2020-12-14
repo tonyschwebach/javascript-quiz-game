@@ -17,8 +17,8 @@
   </head>
   <body>
     <header>
-      <div id="view-highscores"><a href="./highScores.html">View Highscores</a></div>
-      <div id="score-timer">Time: 0</div>
+      <div id="view-highscores" class=""><a href="./highScores.html">View Highscores</a></div>
+      <div id="score-timer" class="">Time: 0</div>
     </header>
     <main class="container">
       <!-- row 1 for question text -->
@@ -56,7 +56,7 @@
       <!-- row for highscores form  -->
       <div class="row">
         <div class="col-md-12 ">  <!-- d-none -->
-          <form id="user-score-form" class="" method="POST">
+          <form id="user-score-form" class="invisible" method="POST">
             <label for="userInitials">Enter Initials:</label>
             <input type="text" name="user-initials" id="user-initials" />
             <button type="submit" class="">Submit</button>
