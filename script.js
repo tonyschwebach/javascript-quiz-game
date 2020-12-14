@@ -60,7 +60,7 @@ let jsQuizQuestions = [
 init();
 
 ////// FUNCTIONS
-// function to start the quiz for a given set of questions
+// function to start the quiz
 function startQuiz() {
   questionTextEl.textContent = "";
   instructionsEl.textContent = "";
@@ -70,7 +70,6 @@ function startQuiz() {
   setScoreTimer();
   askQuestion(currentQuestion);
 
-  // start timer
 }
 // start score timer
 function setScoreTimer() {
@@ -108,7 +107,7 @@ function askQuestion(questionNumber) {
     liEl.appendChild(buttonEl);
   }
 }
-// clear page of questions and ask user for initials
+// clear page of questions to ask user for initials
 function getInitials() {
   questionTextEl.textContent = "All done!";
   instructionsEl.textContent = "Your final score is " + timeRemaining + ".";
@@ -129,11 +128,12 @@ function recordScore() {
 // function to display high scores
 function renderScores() {
   highScoresListEl.innerHTML = ""; //clear list
+  // sort scores high to low
   let sortedScores = highscoresArray.sort((a, b) => {
     return b.score - a.score;
-  }); // sort scores high to low
+  }); 
   for (j = 0; j < sortedScores.length; j++) {
-    console.log(sortedScores[j]);
+  
     var li = document.createElement("li");
     li.textContent =
       j + 1 + ". " + sortedScores[j].player + " - " + sortedScores[j].score;
@@ -153,18 +153,21 @@ if (document.title === "JavaScript Quiz Game") {
   // event listener for user selection of choices for the question
   choicesListEl.addEventListener("click", function (event) {
     event.preventDefault();
+    // match user choice to index
     if (event.target.matches("button")) {
       var userSelection = parseInt(
         event.target.getAttribute("data-choiceIndex")
       );
+      // user selection matches correct answer
       if (userSelection === jsQuizQuestions[currentQuestion].answerIndex) {
         notificationEl.textContent = "Correct!";
+      // user selected incorrect answer  
       } else {
         notificationEl.textContent = "Wrong!";
         timeRemaining = timeRemaining - 10;
         scoreTimerEl.textContent = "Time: " + timeRemaining;
       }
-
+      // go to the next question if there are more questions left
       currentQuestion++;
       if (currentQuestion < jsQuizQuestions.length) {
         askQuestion(currentQuestion);
@@ -194,34 +197,3 @@ if (document.title === "JavaScript Quiz Highscores") {
     renderScores();
   });
 }
-
-// //to do
-// color buttons
-
-//
-// start button
-// timer starts
-// question from array of questions appear
-// correct answer moves to next question and notifies correct
-// incorrect answer deducts 10 seconds from remaining time and notifies wrong
-// when all questions are answered or timer reaches 0 the game is over
-// submit initials and high ScopedCredential
-
-// event listener to start quiz
-// call gameplay function
-
-// define gameplay function:
-// start timer
-// for loop over array of questions
-// call function to display question i
-// event listener for answer
-// if incorrect, reduce time, notify incorrect
-// if correct, notify correct
-// clear question and choices
-// if time <=0, call game over function
-// else, continue for loop
-// call game over function
-
-//game over function
-// form for user to submit initials
-// save to local storage
