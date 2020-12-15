@@ -1,6 +1,6 @@
 # Javascript Quiz Game
 
-URL for deployed web
+
 
 ## Description
 
