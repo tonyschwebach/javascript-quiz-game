@@ -33,7 +33,7 @@ Usage section here
 
 ![game gif](/assets/demoGame.gif)
 
-![high scores screenshot](/assets/highscores.png)
+![high scores screenshot](/assets/highscores.PNG)
 
 ---
 
